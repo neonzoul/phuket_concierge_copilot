@@ -27,6 +27,7 @@ Run from the repo root:
 ```bash
 npm install
 npm run dev:api       # starts the Fastify API (apps/api), default port 4100
+npm run dev:web       # starts the Guest Chat UI (apps/web), default port 3000 — needs dev:api running too
 npm run build         # builds all workspaces
 npm run test          # runs tests in all workspaces (no test runner wired yet — see Known gaps)
 ```
@@ -51,7 +52,8 @@ agent registry, a swappable LLM provider abstraction, and a property-context loa
 property (or a future real property) is data, never code.
 
 ```
-apps/api/                Fastify server — the only HTTP surface today
+apps/api/                Fastify server — the HTTP surface for the agent pipeline
+apps/web/                Next.js Guest Chat UI — calls apps/api, no business logic of its own
 packages/schemas/        zod schemas — every agent input/output, validated
 packages/llm-providers/  LLMProvider interface + Anthropic/Mock adapters
 packages/agent-runtime/  Agent interface + runAgent (timeout/retry/fallback/event-log)
@@ -65,7 +67,8 @@ prompts/                 versioned prompt files (currently unused — every agen
 contexts/demo/nai-harn-wellness-hideaway/  the approved fictional demo data pack
 ```
 
-`apps/web` (Guest Chat / Staff Dashboard UI) does not exist yet.
+`apps/web` currently has only the Guest Chat surface — the Staff Dashboard UI does not exist yet
+(Phase 4).
 
 ### Request flow
 
@@ -133,8 +136,17 @@ plus the remaining build-sequence items). Check off as each phase lands; keep th
   - Replace the placeholder `guestName`/`preferences`/`sensitiveNotes: []` in
     `GET /api/v1/guests/:id/brief` with real repo data (map `sensitive_notes[].summary` → `string[]`
     for the agent's `sensitiveNotes: string[]` input).
-- [ ] **Phase 2 — Guest Chat UI** (`apps/web`, build step 16)
-  - Minimal Next.js app, one chat surface calling `POST /api/v1/messages`.
+- [x] **Phase 2 — Guest Chat UI** (`apps/web`, build step 16)
+  - Minimal Next.js 14 App Router app (`npm run dev:web`, port 3000), one chat surface calling
+    `POST /api/v1/messages` (via a same-origin `/api/*` rewrite in `next.config.mjs` proxied to the
+    API's `API_ORIGIN`, so no CORS changes were needed on `apps/api`).
+  - Renders each assistant turn with its raw `state` (ANSWER/CONFIRM/HUMAN/UNKNOWN) as a color-coded
+    badge next to the literal `responseText` — no client-side rewording, so it can't fabricate a
+    confirmation the API didn't give.
+  - Guest picker is a hardcoded UI convenience list mirroring `demo_guests.json`'s two guests
+    (`guest_emma_001`, `guest_daniel_002`) — labels only, not a data source.
+  - No image assets yet — the hero banner is a styled placeholder block with a descriptive
+    `aria-label` (`.hero-placeholder` in `globals.css`).
 - [ ] **Phase 3 — Acceptance suite runner** (build step 22)
   - Script that replays `tests/fixtures/acceptance_test_matrix.csv` against `/api/v1/messages` and
     diffs against `expected_state`/`pass_condition`; wire into `npm run test`.

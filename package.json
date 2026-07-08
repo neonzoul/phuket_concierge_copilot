@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Phuket Concierge Copilot — multi-agent guest-care demo (ANANT AGENT). See doc/spec/implementation-plan.md.",
+  "description": "Phuket Concierge Copilot — multi-agent guest-care demo (ANANT AGENT). See spec/implementation-plan.md.",
   "workspaces": [
     "apps/*",
     "packages/*",
@@ -12,6 +12,7 @@
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "dev:api": "npm run dev --workspace apps/api",
+    "dev:web": "npm run dev --workspace apps/web",
     "test": "npm run test --workspaces --if-present"
   },
   "engines": {
