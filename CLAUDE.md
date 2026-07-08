@@ -29,7 +29,7 @@ npm install
 npm run dev:api       # starts the Fastify API (apps/api), default port 4100
 npm run dev:web       # starts the Guest Chat UI (apps/web), default port 3000 — needs dev:api running too
 npm run build         # builds all workspaces
-npm run test          # runs tests in all workspaces (no test runner wired yet — see Known gaps)
+npm run test          # runs the acceptance suite (tests/run-acceptance.ts) against a spawned API
 ```
 
 Smoke test once the API is running:
@@ -41,8 +41,9 @@ curl -X POST http://localhost:4100/api/v1/messages \
   -d '{"message": "What time is breakfast?"}'
 ```
 
-There is no single-test command yet — `tests/fixtures/acceptance_test_matrix.csv` (40 cases) exists
-but no runner replays it against the API yet (build sequence step 22, currently unstarted).
+`npm run test` runs all 40 `tests/fixtures/acceptance_test_matrix.csv` cases; there's no
+single-test filter yet (it's one script, not a test framework) — currently 29/40 pass, see
+`spec/implementation-plan.md`'s "Acceptance suite findings" for the remaining gaps.
 
 ## Architecture
 
@@ -147,9 +148,14 @@ plus the remaining build-sequence items). Check off as each phase lands; keep th
     (`guest_emma_001`, `guest_daniel_002`) — labels only, not a data source.
   - No image assets yet — the hero banner is a styled placeholder block with a descriptive
     `aria-label` (`.hero-placeholder` in `globals.css`).
-- [ ] **Phase 3 — Acceptance suite runner** (build step 22)
-  - Script that replays `tests/fixtures/acceptance_test_matrix.csv` against `/api/v1/messages` and
-    diffs against `expected_state`/`pass_condition`; wire into `npm run test`.
+- [x] **Phase 3 — Acceptance suite runner** (build step 22)
+  - `tests/run-acceptance.ts` (`npm run test`) spawns the API on a dedicated port, replays all 40
+    `tests/fixtures/acceptance_test_matrix.csv` cases against `/api/v1/messages`, diffs `state`
+    (plus `assigned_team` for CONFIRM/HUMAN), prints PASS/FAIL per case, exits non-zero on failure.
+  - Currently 29/40 pass — 11 failures are real classifier/retrieval/handoff-rule gaps, not caused
+    by Phases 1–2. Documented in `spec/implementation-plan.md`'s "Acceptance suite findings" —
+    fixing them is the next concrete step, as its own focused pass using `npm run test` as the
+    feedback loop.
 - [ ] **Phase 4 — Staff Dashboard UI** (build step 17, blocked on Phase 1 for real guest data)
 - [ ] **Phase 5 — Slack demo adapter** (build step 20): implement `human-handoff`'s
   `sendNotification` tool.

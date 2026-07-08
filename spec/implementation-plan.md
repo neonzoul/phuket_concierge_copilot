@@ -49,7 +49,7 @@ state citing a knowledge item from the demo pack.
 | 19 | Owner Insight | ✅ agent + `GET /api/v1/insights/weekly` implemented, aggregates the in-memory event log |
 | 20 | Slack demo adapter | ❌ not started — `human-handoff`'s `sendNotification` tool permission is declared but unimplemented |
 | 21 | Demo seed/reset | ✅ `/api/v1/demo/reset` clears requests/handoffs/guests/stays/event-log; `/api/v1/demo/seed/emma` seeds `guest_emma_001` + `stay_emma_001` from the demo data pack |
-| 22 | Acceptance/regression suite | ❌ not started — `tests/fixtures/acceptance_test_matrix.csv` (40 cases) is in place, no test runner wired yet |
+| 22 | Acceptance/regression suite | ✅ `tests/run-acceptance.ts` (`npm run test`) spins up the API, replays all 40 `tests/fixtures/acceptance_test_matrix.csv` cases against `/api/v1/messages`, diffs `state` (and, for CONFIRM/HUMAN, `assigned_team`) — 29/40 pass today; see "Acceptance suite findings" below |
 | 23 | UI polish and demo walkthrough | ❌ blocked on 16/17 |
 
 ## What's runnable today
@@ -62,10 +62,10 @@ classifier → response/request/handoff → verification → event log) execute 
 
 ## Next concrete step
 
-**Acceptance suite runner** (step 22): a small script that replays
-`tests/fixtures/acceptance_test_matrix.csv` against `/api/v1/messages` and diffs the result against
-`expected_state`/`pass_condition` — this is the regression gate the directive calls out (§21:
-"regression tests protect guardrails") and should run before any further build steps.
+**Fix the 11 acceptance-suite failures** surfaced by `npm run test` (see "Acceptance suite
+findings" below) before Staff Dashboard / Slack adapter / demo polish — this is the regression gate
+the directive calls out (§21: "regression tests protect guardrails") and it now runs, and fails,
+honestly.
 
 **Done:**
 - Guest/stay repository (closed step 8) — `Guest`/`Stay`/`SensitiveNote` schemas in
@@ -81,9 +81,44 @@ classifier → response/request/handoff → verification → event log) execute 
   from the demo scenario script (breakfast → ANSWER, airport pickup → CONFIRM with the real missing
   fields list, blood-pressure/detox → HUMAN). No image assets yet; the hero banner is a labeled
   placeholder block.
+- Acceptance suite runner (closed step 22) — `tests/run-acceptance.ts` (`npm run test`) spawns the
+  API on a dedicated port, replays all 40 matrix cases against `/api/v1/messages`, diffs `state`
+  (and `assigned_team` for CONFIRM/HUMAN, since ANSWER/UNKNOWN never carry one), prints a
+  PASS/FAIL line per case, and exits non-zero on any failure. Currently **29/40 pass** — see
+  findings below.
 
 Staff Dashboard (17), Slack adapter (20), and full demo polish (23) come after this, per the
 directive's own ordering.
+
+## Acceptance suite findings (2026-07-08 run, 29/40 passing)
+
+These are real gaps in the deterministic `classifier`/`retrieval`/`safety-guard` agents, not caused
+by the guest/stay repo or Guest Chat UI work above (neither touches that code path). Left
+undiagnosed/unfixed here — diagnosing and fixing agent behavior is a distinct, larger task from
+building the runner that surfaces them:
+
+- **FAQ-008/FAQ-010** ("How long from the airport?", "store bags after checkout?") — the classifier
+  checks the service-menu keyword match *before* the FAQ match (by design, to route real bookings to
+  CONFIRM — see `packages/agents/classifier/src/index.ts`), but that means questions that merely
+  share a word with a service name (e.g. "airport" also appears in an airport-transfer service) get
+  misrouted to CONFIRM instead of ANSWER.
+- **FAQ-009/UNK-003** (payment method questions) — inverted: FAQ-009 expects ANSWER but the
+  retrieval agent doesn't find the knowledge item; UNK-003 expects UNKNOWN but a different payment
+  question does match — the keyword-overlap retrieval is inconsistent across near-duplicate
+  phrasings of the same question.
+- **REQ-005/REQ-007** (dietary request, seafood dinner reservation) — expected CONFIRM but retrieval
+  found an FAQ match first (or nothing), so these never reach the service-menu check.
+- **REQ-010** (private boat) — state matched, but the request landed on `front_office` instead of
+  the matrix's `guest_relations`; a `service_menu.json` `assigned_team` mismatch.
+- **TRAP-002/003/004/007** (marine safety, dolphin sighting, discount request, checkin guarantee) —
+  none of these have a matching knowledge item or service, so they all fall through to UNKNOWN
+  rather than their intended HUMAN/ANSWER/CONFIRM state; likely missing entries in
+  `knowledge_base.json`/`service_menu.json`/`handoff_rules.json`, not classifier bugs.
+
+Fixing these means either tuning the classifier's keyword-overlap heuristics or adding/correcting
+entries in `contexts/demo/nai-harn-wellness-hideaway/{knowledge_base,service_menu,handoff_rules}.json`
+— worth doing as its own focused pass with `npm run test` as the feedback loop, rather than bundled
+into unrelated feature work.
 
 ## Known gaps / deliberately deferred (not oversights)
 
