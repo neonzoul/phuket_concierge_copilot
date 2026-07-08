@@ -5,7 +5,7 @@ import type { PropertyContext } from "@pcc/property-context";
 import { getEvents, resetEventLog } from "@pcc/event-log";
 import { mitriGuestBriefAgent } from "@pcc/agent-mitri-guest-brief";
 import { ownerInsightAgent } from "@pcc/agent-owner-insight";
-import { requestsRepo, handoffsRepo } from "../stores.js";
+import { requestsRepo, handoffsRepo, guestsRepo, staysRepo } from "../stores.js";
 
 interface Deps {
   orchestrator: ReturnType<typeof createOrchestrator>;
@@ -36,14 +36,15 @@ export function registerRoutes(app: FastifyInstance, deps: Deps): void {
 
   app.get<{ Params: { id: string } }>("/api/v1/guests/:id/brief", async (req) => {
     const guestId = req.params.id;
-    // NOTE: no guest repo yet (build sequence step 8) — brief is composed from requests/handoffs
-    // only until demo_guests.json is wired into a real store.
+    const guest = guestsRepo.get(guestId);
+    const stay = staysRepo.forGuest(guestId)[0];
     const brief = await mitriGuestBriefAgent.execute(
       {
         guestId,
-        guestName: guestId,
-        preferences: [],
-        sensitiveNotes: [],
+        guestName: guest?.full_name ?? guestId,
+        stay,
+        preferences: guest?.preferences ?? [],
+        sensitiveNotes: guest?.sensitive_notes.map((n) => n.summary) ?? [],
         requests: requestsRepo.forGuest(guestId),
         handoffs: handoffsRepo.forGuest(guestId),
         sourceEventIds: [],
@@ -80,15 +81,23 @@ export function registerRoutes(app: FastifyInstance, deps: Deps): void {
   app.post("/api/v1/demo/reset", async () => {
     requestsRepo.reset();
     handoffsRepo.reset();
+    guestsRepo.reset();
+    staysRepo.reset();
     resetEventLog();
     return { status: "reset" };
   });
 
   app.post("/api/v1/demo/seed/emma", async () => {
-    // TODO: seed the guest/stay/conversation repos from
-    // contexts/demo/nai-harn-wellness-hideaway/demo_guests.json + demo_stays.json once a guest
-    // repo exists (build sequence step 8). The event log / request / handoff stores already
-    // reset cleanly via /api/v1/demo/reset.
-    return { status: "not_implemented", note: "Guest repo not yet scaffolded — see implementation-plan.md" };
+    const guest = propertyContext.demoGuests.find((g) => g.guest_id === "guest_emma_001");
+    const stay = propertyContext.demoStays.find((s) => s.guest_id === "guest_emma_001");
+
+    if (!guest || !stay) {
+      return { status: "not_found", note: "guest_emma_001 missing from the demo data pack" };
+    }
+
+    if (!guestsRepo.get(guest.guest_id)) guestsRepo.add(guest);
+    if (!staysRepo.forGuest(guest.guest_id).length) staysRepo.add(stay);
+
+    return { status: "seeded", guest_id: guest.guest_id, stay_id: stay.stay_id };
   });
 }

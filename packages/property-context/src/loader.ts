@@ -5,6 +5,8 @@ import {
   ServiceDefinition,
   HandoffRule,
   StaffRole,
+  Guest,
+  Stay,
 } from "@pcc/schemas";
 
 // Directive §5: "when property changes → change context directory, run schema validation, seed
@@ -20,6 +22,8 @@ export interface PropertyContext {
   handoffRules: HandoffRule[];
   staffRoles: StaffRole[];
   manifest: Record<string, unknown>;
+  demoGuests: Guest[];
+  demoStays: Stay[];
 }
 
 function readJson(path: string): unknown {
@@ -51,6 +55,12 @@ export function loadPropertyContext(
   const staffRolesRaw = readJson(join(dir, "staff_roles.json")) as { roles: unknown[] };
   const staffRoles = staffRolesRaw.roles.map((item) => StaffRole.parse(item));
 
+  const demoGuestsRaw = readJson(join(dir, "demo_guests.json")) as { guests: unknown[] };
+  const demoGuests = demoGuestsRaw.guests.map((item) => Guest.parse(item));
+
+  const demoStaysRaw = readJson(join(dir, "demo_stays.json")) as { stays: unknown[] };
+  const demoStays = demoStaysRaw.stays.map((item) => Stay.parse(item));
+
   return {
     propertySlug,
     propertyConfig,
@@ -60,5 +70,7 @@ export function loadPropertyContext(
     handoffRules,
     staffRoles,
     manifest,
+    demoGuests,
+    demoStays,
   };
 }

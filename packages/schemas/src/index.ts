@@ -87,6 +87,43 @@ export const StaffRole = z.object({
 });
 export type StaffRole = z.infer<typeof StaffRole>;
 
+export const SensitiveNote = z.object({
+  type: z.string(),
+  summary: z.string(),
+  data_minimized: z.boolean(),
+  requires_human_review: z.boolean(),
+});
+export type SensitiveNote = z.infer<typeof SensitiveNote>;
+
+export const Guest = z.object({
+  guest_id: z.string(),
+  full_name: z.string(),
+  nationality: z.string(),
+  preferred_language: z.string(),
+  contact: z.object({
+    email: z.string(),
+    phone: z.string().optional(),
+  }),
+  preferences: z.array(z.string()).default([]),
+  purpose_of_stay: z.string(),
+  sensitive_notes: z.array(SensitiveNote).default([]),
+});
+export type Guest = z.infer<typeof Guest>;
+
+export const Stay = z.object({
+  stay_id: z.string(),
+  guest_id: z.string(),
+  property_id: z.string(),
+  booking_name: z.string(),
+  suite_type: z.string(),
+  arrival_date: z.string(),
+  departure_date: z.string(),
+  arrival_time: z.string(),
+  status: z.string(),
+  booking_lookup_source: z.string(),
+});
+export type Stay = z.infer<typeof Stay>;
+
 // ---- Agent outputs ----
 export const SafetyGuardOutput = z.object({
   matched: z.boolean(),
