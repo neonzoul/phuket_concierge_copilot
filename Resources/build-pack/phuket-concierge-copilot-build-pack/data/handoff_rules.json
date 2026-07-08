@@ -1,0 +1,21 @@
+[
+  {
+    "risk_category": "medical_question",
+    "assigned_team": "wellness_team",
+    "priority": "urgent",
+    "required_action": "Contact guest directly before confirming participation."
+  },
+  {
+    "risk_category": "refund_dispute",
+    "assigned_team": "manager",
+    "priority": "high",
+    "required_action": "Review case and reply directly to guest."
+  },
+  {
+    "risk_category": "safety_emergency",
+    "assigned_team": "manager",
+    "priority": "urgent",
+    "required_action": "Escalate immediately and make direct contact."
+  }
+]
+

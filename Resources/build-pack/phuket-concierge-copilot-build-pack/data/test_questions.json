@@ -1,0 +1,23 @@
+[
+  {
+    "id": "q1",
+    "message": "What time is breakfast?"
+  },
+  {
+    "id": "q2",
+    "message": "Can you arrange airport pickup for tomorrow?"
+  },
+  {
+    "id": "q3",
+    "message": "I want a quiet room and gluten-free meals."
+  },
+  {
+    "id": "q4",
+    "message": "Is detox safe if I have high blood pressure?"
+  },
+  {
+    "id": "q5",
+    "message": "Do you offer babysitting?"
+  }
+]
+

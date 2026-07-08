@@ -1,0 +1,22 @@
+{
+  "name": "@pcc/orchestration",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "dependencies": {
+    "@pcc/schemas": "*",
+    "@pcc/agent-runtime": "*",
+    "@pcc/event-log": "*",
+    "@pcc/property-context": "*",
+    "@pcc/agent-safety-guard": "*",
+    "@pcc/agent-retrieval": "*",
+    "@pcc/agent-classifier": "*",
+    "@pcc/agent-guest-response": "*",
+    "@pcc/agent-verifier": "*",
+    "@pcc/agent-request-capture": "*",
+    "@pcc/agent-human-handoff": "*",
+    "@pcc/agent-mitri-guest-brief": "*",
+    "@pcc/agent-owner-insight": "*"
+  }
+}

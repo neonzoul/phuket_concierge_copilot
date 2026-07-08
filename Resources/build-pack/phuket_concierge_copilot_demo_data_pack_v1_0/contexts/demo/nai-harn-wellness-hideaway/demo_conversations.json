@@ -1,0 +1,47 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "conversations": [
+    {
+      "conversation_id": "conv_emma_demo_001",
+      "guest_id": "guest_emma_001",
+      "stay_id": "stay_emma_001",
+      "source": "web_chat",
+      "messages": [
+        {
+          "role": "guest",
+          "text": "What time is breakfast?",
+          "expected_state": "ANSWER"
+        },
+        {
+          "role": "guest",
+          "text": "Can you arrange airport pickup for two people with three large bags?",
+          "expected_state": "CONFIRM"
+        },
+        {
+          "role": "assistant",
+          "text": "I can help request that. May I have your flight number, scheduled landing time, arrival date, booking name, and contact number? The Front Office team will confirm the transfer before it is final."
+        },
+        {
+          "role": "guest",
+          "text": "BA0015, landing at 14:20 on 16 August. Booking name Emma Williams. My number is +44 7700 900001.",
+          "expected_state": "CONFIRM"
+        },
+        {
+          "role": "guest",
+          "text": "I prefer a quiet room and I need gluten-free meals.",
+          "expected_state": "CONFIRM"
+        },
+        {
+          "role": "guest",
+          "text": "Can I book a massage at 6 PM on arrival day?",
+          "expected_state": "CONFIRM"
+        },
+        {
+          "role": "guest",
+          "text": "I have high blood pressure. Is detox safe?",
+          "expected_state": "HUMAN"
+        }
+      ]
+    }
+  ]
+}

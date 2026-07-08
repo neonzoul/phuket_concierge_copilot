@@ -1,0 +1,21 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "examples": [
+    {
+      "handoff_id": "handoff_emma_bp_001",
+      "behavior_state": "HUMAN",
+      "risk_level": "HIGH",
+      "priority": "HIGH",
+      "risk_category": "medical_question",
+      "guest_id": "guest_emma_001",
+      "assigned_team": "wellness_team",
+      "summary": "Guest mentioned high blood pressure and asked whether the detox program is safe.",
+      "required_action": "Wellness Team must contact the guest directly before confirming any detox or wellness program.",
+      "status": "OPEN",
+      "sensitive": true,
+      "source_message_ids": [
+        "demo-msg-007"
+      ]
+    }
+  ]
+}

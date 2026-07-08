@@ -1,0 +1,17 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "stays": [
+    {
+      "stay_id": "stay_emma_001",
+      "guest_id": "guest_emma_001",
+      "property_id": "demo_nhwh_001",
+      "booking_name": "Emma Williams",
+      "suite_type": "Garden Calm Suite",
+      "arrival_date": "2026-08-16",
+      "departure_date": "2026-08-20",
+      "arrival_time": "15:40",
+      "status": "PRE_ARRIVAL",
+      "booking_lookup_source": "seeded_demo"
+    }
+  ]
+}

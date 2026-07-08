@@ -1,0 +1,29 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "report_type": "illustrative_sample_week",
+  "property_id": "demo_nhwh_001",
+  "period": {
+    "start": "2026-08-10",
+    "end": "2026-08-16"
+  },
+  "metrics": {
+    "conversations": 48,
+    "routine_answers": 91,
+    "requests_captured": 22,
+    "pending_confirmations": 5,
+    "human_handoffs": 7,
+    "unknown_questions": 6,
+    "service_opportunities": 14
+  },
+  "insights": [
+    "Airport transfer was the most common service request after 8:00 PM.",
+    "Three dietary questions required human clarification because cross-contact risk was not specified.",
+    "Late check-out questions were common, but most guests did not include a preferred departure time.",
+    "Two medical-adjacent wellness questions were correctly handed to the Wellness Team."
+  ],
+  "recommendations": [
+    "Add a clearer dietary cross-contact statement to the guest-facing knowledge base.",
+    "Ask for requested checkout time immediately when late check-out intent is detected.",
+    "Keep the medical/wellness handoff rule unchanged."
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "guest_emma_williams",
+  "property_id": "property_nai_harn_wellness_hideaway",
+  "name": "Emma Williams",
+  "booking_name": "Emma Williams",
+  "contact": {
+    "email": "emma@example.com",
+    "phone": "+44-0000-000000"
+  },
+  "consent_status": "recorded",
+  "stay": {
+    "arrival_at": "2026-07-10T14:20:00+07:00",
+    "departure_at": "2026-07-15T12:00:00+07:00",
+    "room_or_villa": "Villa 12",
+    "purpose": "wellness_recovery"
+  },
+  "preferences": {
+    "quiet_room": true,
+    "dietary_preference": "gluten_free",
+    "wellness_goal": "sleep_and_stress_recovery",
+    "special_requests": ["airport_transfer", "massage"],
+    "sensitivity_flags": ["high_blood_pressure"]
+  }
+}
+

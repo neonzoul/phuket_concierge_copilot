@@ -1,0 +1,273 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "property_id": "demo_nhwh_001",
+  "services": [
+    {
+      "service_id": "airport_transfer_sedan",
+      "name": "Airport Pickup — Private Sedan",
+      "category": "transport",
+      "description": "Private pickup from Phuket International Airport.",
+      "price": {
+        "amount": 1200,
+        "currency": "THB",
+        "type": "fixed_demo"
+      },
+      "capacity": "Up to 3 guests and 2 large bags",
+      "operating_hours": "24 hours with advance confirmation",
+      "requires_confirmation": true,
+      "required_fields": [
+        "booking_name",
+        "arrival_date",
+        "flight_number",
+        "scheduled_landing_time",
+        "guest_count",
+        "luggage_count",
+        "contact_number"
+      ],
+      "assigned_team": "front_office",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "airport_transfer_van",
+      "name": "Airport Pickup — Private Van",
+      "category": "transport",
+      "description": "Private van pickup from Phuket International Airport.",
+      "price": {
+        "amount": 1600,
+        "currency": "THB",
+        "type": "fixed_demo"
+      },
+      "capacity": "Up to 7 guests and 6 large bags",
+      "operating_hours": "24 hours with advance confirmation",
+      "requires_confirmation": true,
+      "required_fields": [
+        "booking_name",
+        "arrival_date",
+        "flight_number",
+        "scheduled_landing_time",
+        "guest_count",
+        "luggage_count",
+        "contact_number"
+      ],
+      "assigned_team": "front_office",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "calm_body_massage_90",
+      "name": "Calm Body Massage — 90 Minutes",
+      "category": "wellness",
+      "description": "A gentle full-body massage focused on relaxation.",
+      "price": {
+        "amount": 2400,
+        "currency": "THB",
+        "type": "fixed_demo"
+      },
+      "operating_hours": "9:00 AM–9:00 PM; last start 7:30 PM",
+      "requires_confirmation": true,
+      "required_fields": [
+        "preferred_date",
+        "preferred_time",
+        "guest_name",
+        "health_concerns_acknowledged"
+      ],
+      "assigned_team": "wellness_team",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "wellness_consultation_45",
+      "name": "Wellness Consultation — 45 Minutes",
+      "category": "wellness",
+      "description": "A private consultation to discuss goals, concerns, and suitable activities.",
+      "price": {
+        "amount": 1500,
+        "currency": "THB",
+        "type": "fixed_demo"
+      },
+      "operating_hours": "9:00 AM–6:00 PM",
+      "requires_confirmation": true,
+      "required_fields": [
+        "preferred_date",
+        "preferred_time",
+        "guest_name",
+        "goal_summary"
+      ],
+      "assigned_team": "wellness_team",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "group_yoga_morning",
+      "name": "Morning Yoga",
+      "category": "wellness",
+      "description": "Gentle group yoga in the Wellness Studio.",
+      "price": {
+        "amount": 600,
+        "currency": "THB",
+        "type": "fixed_demo"
+      },
+      "operating_hours": "Daily at 7:30 AM",
+      "requires_confirmation": true,
+      "required_fields": [
+        "date",
+        "guest_name",
+        "participant_count"
+      ],
+      "assigned_team": "wellness_team",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "group_yoga_evening",
+      "name": "Restorative Evening Yoga",
+      "category": "wellness",
+      "description": "A slow restorative class designed for relaxation.",
+      "price": {
+        "amount": 600,
+        "currency": "THB",
+        "type": "fixed_demo"
+      },
+      "operating_hours": "Daily at 5:00 PM",
+      "requires_confirmation": true,
+      "required_fields": [
+        "date",
+        "guest_name",
+        "participant_count"
+      ],
+      "assigned_team": "wellness_team",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "private_driver_4h",
+      "name": "Private Driver — 4 Hours",
+      "category": "transport",
+      "description": "Private car and driver for local journeys.",
+      "price": {
+        "amount": 2800,
+        "currency": "THB",
+        "type": "from_demo"
+      },
+      "operating_hours": "6:00 AM–11:00 PM",
+      "requires_confirmation": true,
+      "required_fields": [
+        "date",
+        "start_time",
+        "pickup_point",
+        "route_or_interests",
+        "guest_count"
+      ],
+      "assigned_team": "guest_relations",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "restaurant_reservation",
+      "name": "Restaurant Reservation Request",
+      "category": "dining",
+      "description": "The team can request a table at a recommended restaurant.",
+      "price": null,
+      "operating_hours": "Subject to restaurant availability",
+      "requires_confirmation": true,
+      "required_fields": [
+        "restaurant_or_cuisine",
+        "date",
+        "time",
+        "guest_count",
+        "dietary_notes"
+      ],
+      "assigned_team": "guest_relations",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "romantic_setup",
+      "name": "Romantic Suite Setup",
+      "category": "special_occasion",
+      "description": "Flowers, non-alcoholic sparkling drink, and simple room decoration.",
+      "price": {
+        "amount": 3200,
+        "currency": "THB",
+        "type": "fixed_demo"
+      },
+      "operating_hours": "Requires at least 24 hours’ notice",
+      "requires_confirmation": true,
+      "required_fields": [
+        "date",
+        "occasion",
+        "preferred_message",
+        "allergy_or_flower_notes"
+      ],
+      "assigned_team": "guest_relations",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "late_checkout_request",
+      "name": "Late Check-out Request",
+      "category": "stay",
+      "description": "Late check-out subject to availability and applicable fee.",
+      "price": {
+        "rules": [
+          "Until 2:00 PM: 1,500 THB if approved",
+          "Until 6:00 PM: 50% nightly rate if approved",
+          "After 6:00 PM: full nightly rate if approved"
+        ]
+      },
+      "requires_confirmation": true,
+      "required_fields": [
+        "departure_date",
+        "requested_checkout_time",
+        "booking_name"
+      ],
+      "assigned_team": "front_office",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "dietary_request",
+      "name": "Dietary Request",
+      "category": "dining",
+      "description": "Record vegetarian, gluten-free, or allergy-related dining needs.",
+      "price": null,
+      "requires_confirmation": true,
+      "required_fields": [
+        "guest_name",
+        "dietary_need",
+        "severity_or_cross_contact_concern",
+        "meal_date"
+      ],
+      "assigned_team": "wellness_team",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "quiet_room_preference",
+      "name": "Quiet Room Preference",
+      "category": "stay",
+      "description": "Record a preference for a quieter suite location.",
+      "price": null,
+      "requires_confirmation": true,
+      "required_fields": [
+        "booking_name",
+        "arrival_date"
+      ],
+      "assigned_team": "front_office",
+      "behavior_state": "CONFIRM"
+    },
+    {
+      "service_id": "private_bay_cruise_request",
+      "name": "Private Phang Nga Bay Cruise Request",
+      "category": "experience",
+      "description": "A private day-cruise request through a curated external partner.",
+      "price": {
+        "amount": 28000,
+        "currency": "THB",
+        "type": "from_demo"
+      },
+      "operating_hours": "Weather and marine conditions permitting",
+      "requires_confirmation": true,
+      "required_fields": [
+        "date",
+        "guest_count",
+        "pickup_location",
+        "dietary_notes",
+        "mobility_notes"
+      ],
+      "assigned_team": "guest_relations",
+      "behavior_state": "CONFIRM",
+      "safety_note": "AI must never guarantee weather, sea conditions, route, wildlife sightings, or safety."
+    }
+  ]
+}

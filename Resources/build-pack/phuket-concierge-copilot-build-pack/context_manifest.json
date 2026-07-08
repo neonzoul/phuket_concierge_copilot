@@ -1,0 +1,39 @@
+{
+  "pack_name": "Phuket Concierge Copilot Build Pack",
+  "version": "1.0",
+  "created_from": [
+    "implementation_pack_requirement.txt",
+    "phuket_concierge_copilot_PRD_v1_0.md"
+  ],
+  "primary_product": "Phuket Concierge Copilot",
+  "internal_intelligence_layer": "Mitri",
+  "primary_guest": "Emma Williams",
+  "source_of_truth": "Web app dashboard",
+  "demo_channels": {
+    "guest": "Web chat or WhatsApp-like web chat",
+    "team": "Slack demo adapter",
+    "owner": "Web dashboard"
+  },
+  "files": [
+    "README.md",
+    "00_EXECUTIVE_PRODUCT_CONTEXT.md",
+    "01_PRD_v1_0.md",
+    "02_RELIABLE_AI_GUARDRAILS.md",
+    "03_WORKING_DEMO_SPEC.md",
+    "04_AGENT_BRAND_BRIEF.md",
+    "05_ENGINEERING_DECISIONS.md",
+    "06_ACCEPTANCE_TEST_MATRIX.csv",
+    "07_AGENT_BOOTSTRAP.md",
+    "data/property_profile.json",
+    "data/knowledge_base.json",
+    "data/service_menu.json",
+    "data/handoff_rules.json",
+    "data/demo_guest_emma.json",
+    "data/test_questions.json",
+    "examples/expected_responses.json",
+    "examples/expected_requests.json",
+    "examples/expected_handoffs.json",
+    "examples/mitri_guest_brief_example.json"
+  ]
+}
+

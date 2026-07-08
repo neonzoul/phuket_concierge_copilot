@@ -1,0 +1,39 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "guest_brief": {
+    "guest": "Emma Williams",
+    "stay": "16–20 August 2026",
+    "suite": "Garden Calm Suite",
+    "purpose_of_stay": "Sleep and stress recovery",
+    "preferences": [
+      "Quiet room",
+      "Gluten-free meals"
+    ],
+    "requests": [
+      {
+        "label": "Airport transfer",
+        "status": "Pending Front Office confirmation"
+      },
+      {
+        "label": "Calm Body Massage at 6:00 PM",
+        "status": "Pending Wellness Team confirmation"
+      },
+      {
+        "label": "Morning yoga",
+        "status": "Not yet requested"
+      }
+    ],
+    "sensitive_items": [
+      {
+        "summary": "High blood pressure mentioned in detox question",
+        "assigned_team": "Wellness Team",
+        "status": "Human review required"
+      }
+    ],
+    "human_actions": [
+      "Confirm airport transfer",
+      "Confirm or suggest alternative massage time",
+      "Wellness Team to contact guest before discussing detox participation"
+    ]
+  }
+}

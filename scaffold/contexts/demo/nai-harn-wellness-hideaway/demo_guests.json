@@ -1,0 +1,43 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "guests": [
+    {
+      "guest_id": "guest_emma_001",
+      "full_name": "Emma Williams",
+      "nationality": "United Kingdom",
+      "preferred_language": "en",
+      "contact": {
+        "email": "emma.williams@demo.example",
+        "phone": "+44 7700 900001"
+      },
+      "preferences": [
+        "quiet room",
+        "gluten-free meals"
+      ],
+      "purpose_of_stay": "sleep and stress recovery",
+      "sensitive_notes": [
+        {
+          "type": "health_adjacent",
+          "summary": "Guest mentioned high blood pressure while asking about detox suitability.",
+          "data_minimized": true,
+          "requires_human_review": true
+        }
+      ]
+    },
+    {
+      "guest_id": "guest_daniel_002",
+      "full_name": "Daniel Kim",
+      "nationality": "Singapore",
+      "preferred_language": "en",
+      "contact": {
+        "email": "daniel.kim@demo.example"
+      },
+      "preferences": [
+        "morning yoga",
+        "vegetarian meals"
+      ],
+      "purpose_of_stay": "short wellness break",
+      "sensitive_notes": []
+    }
+  ]
+}

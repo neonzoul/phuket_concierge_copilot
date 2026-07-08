@@ -1,0 +1,67 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "property_id": "demo_nhwh_001",
+  "property_slug": "nai-harn-wellness-hideaway",
+  "name": "Nai Harn Wellness Hideaway",
+  "public_name": "Nai Harn Wellness Hideaway",
+  "property_type": "boutique_wellness_stay",
+  "location": {
+    "area": "Nai Harn / Rawai",
+    "province": "Phuket",
+    "country": "Thailand",
+    "address_display": "Nai Harn, Phuket, Thailand",
+    "is_fictional": true
+  },
+  "inventory": {
+    "total_suites": 18,
+    "suite_types": [
+      {
+        "id": "garden_calm",
+        "name": "Garden Calm Suite",
+        "count": 8
+      },
+      {
+        "id": "pool_calm",
+        "name": "Pool Calm Suite",
+        "count": 6
+      },
+      {
+        "id": "wellness_loft",
+        "name": "Wellness Loft",
+        "count": 4
+      }
+    ]
+  },
+  "target_guests": [
+    "international wellness travelers",
+    "couples",
+    "solo recovery stays",
+    "small private groups"
+  ],
+  "default_language": "en",
+  "timezone": "Asia/Bangkok",
+  "currency": "THB",
+  "core_teams": [
+    "guest_relations",
+    "front_office",
+    "wellness_team",
+    "operations_manager",
+    "general_manager"
+  ],
+  "guest_channels_p0": [
+    "standalone_web_chat"
+  ],
+  "simulated_source_labels": [
+    "whatsapp",
+    "email",
+    "ota",
+    "front_desk_note"
+  ],
+  "dashboard_source_of_truth": true,
+  "notification_adapter_p0": "slack_mock",
+  "disclosures": {
+    "ai_disclosure_required": true,
+    "guest_copy": "You are chatting with an AI guest care assistant. It uses approved property information and hands sensitive or uncertain matters to our team.",
+    "demo_data_disclosure_required": true
+  }
+}

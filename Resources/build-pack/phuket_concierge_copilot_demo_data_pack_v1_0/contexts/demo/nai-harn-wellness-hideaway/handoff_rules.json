@@ -1,0 +1,277 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "property_id": "demo_nhwh_001",
+  "rules": [
+    {
+      "rule_id": "hr_001",
+      "risk_category": "medical_question",
+      "trigger_examples": [
+        "is detox safe",
+        "blood pressure",
+        "medication",
+        "pregnant",
+        "heart condition",
+        "diabetes",
+        "recent surgery"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "wellness_team",
+      "priority": "HIGH",
+      "required_action": "Do not provide medical advice. Arrange direct wellness review.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_002",
+      "risk_category": "acute_symptoms",
+      "trigger_examples": [
+        "chest pain",
+        "cannot breathe",
+        "fainted",
+        "severe bleeding"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "URGENT",
+      "required_action": "Show emergency guidance and alert Operations immediately.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_003",
+      "risk_category": "allergy_severe",
+      "trigger_examples": [
+        "anaphylaxis",
+        "severe allergy",
+        "epi pen",
+        "epipen"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "URGENT",
+      "required_action": "Treat as urgent safety issue.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_004",
+      "risk_category": "guest_feels_unsafe",
+      "trigger_examples": [
+        "i feel unsafe",
+        "someone is following me",
+        "stranger near my room"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "URGENT",
+      "required_action": "Immediate safety escalation.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_005",
+      "risk_category": "harassment_security",
+      "trigger_examples": [
+        "harassed",
+        "threatened",
+        "someone entered my room"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "URGENT",
+      "required_action": "Immediate security escalation.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_006",
+      "risk_category": "accident_injury",
+      "trigger_examples": [
+        "i had an accident",
+        "i fell",
+        "i am injured"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "URGENT",
+      "required_action": "Escalate and suggest emergency services if appropriate.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_007",
+      "risk_category": "lost_passport",
+      "trigger_examples": [
+        "lost my passport",
+        "passport missing"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "HIGH",
+      "required_action": "Direct human/legal assistance required.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_008",
+      "risk_category": "police_legal",
+      "trigger_examples": [
+        "police",
+        "legal advice",
+        "arrested"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "HIGH",
+      "required_action": "Do not provide legal advice.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_009",
+      "risk_category": "refund_dispute",
+      "trigger_examples": [
+        "i want a refund",
+        "chargeback",
+        "refund now"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "general_manager",
+      "priority": "HIGH",
+      "required_action": "Do not decide refund or compensation.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_010",
+      "risk_category": "payment_dispute",
+      "trigger_examples": [
+        "charged twice",
+        "card charged",
+        "payment dispute"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "general_manager",
+      "priority": "HIGH",
+      "required_action": "Staff review required.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_011",
+      "risk_category": "severe_complaint",
+      "trigger_examples": [
+        "this is unacceptable",
+        "worst hotel",
+        "i will report you"
+      ],
+      "risk_level": "MEDIUM",
+      "behavior_state": "HUMAN",
+      "handoff_team": "general_manager",
+      "priority": "HIGH",
+      "required_action": "Acknowledge and hand off.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_012",
+      "risk_category": "food_safety",
+      "trigger_examples": [
+        "food poisoning",
+        "sick after eating"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "URGENT",
+      "required_action": "Safety escalation.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_013",
+      "risk_category": "child_illness",
+      "trigger_examples": [
+        "my child is sick",
+        "baby is unwell"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "URGENT",
+      "required_action": "Direct human support.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_014",
+      "risk_category": "missing_person",
+      "trigger_examples": [
+        "cannot find my husband",
+        "guest missing"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "URGENT",
+      "required_action": "Immediate escalation.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_015",
+      "risk_category": "weather_marine_safety",
+      "trigger_examples": [
+        "is the boat safe tomorrow",
+        "storm",
+        "rough sea"
+      ],
+      "risk_level": "HIGH",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "HIGH",
+      "required_action": "No safety guarantee; human review.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_016",
+      "risk_category": "room_damage",
+      "trigger_examples": [
+        "something broke",
+        "water leaking",
+        "electric issue"
+      ],
+      "risk_level": "MEDIUM",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "HIGH",
+      "required_action": "Operational intervention required.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_017",
+      "risk_category": "privacy_data_request",
+      "trigger_examples": [
+        "delete my data",
+        "what data do you store"
+      ],
+      "risk_level": "MEDIUM",
+      "behavior_state": "HUMAN",
+      "handoff_team": "operations_manager",
+      "priority": "NORMAL",
+      "required_action": "Privacy request requires human processing.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_018",
+      "risk_category": "unknown_service",
+      "trigger_examples": [
+        "babysitting",
+        "motorbike rental",
+        "crypto payment"
+      ],
+      "risk_level": "LOW",
+      "behavior_state": "UNKNOWN",
+      "handoff_team": "guest_relations",
+      "priority": "NORMAL",
+      "required_action": "Do not invent service; offer staff check.",
+      "active": true
+    }
+  ]
+}

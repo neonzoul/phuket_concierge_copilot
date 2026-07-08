@@ -1,0 +1,22 @@
+{
+  "name": "@pcc/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "fastify": "^4.28.0",
+    "dotenv": "^16.4.0",
+    "@pcc/schemas": "*",
+    "@pcc/agent-runtime": "*",
+    "@pcc/event-log": "*",
+    "@pcc/property-context": "*",
+    "@pcc/orchestration": "*",
+    "@pcc/agent-mitri-guest-brief": "*",
+    "@pcc/agent-owner-insight": "*"
+  }
+}

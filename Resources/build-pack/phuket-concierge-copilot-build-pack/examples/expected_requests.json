@@ -1,0 +1,19 @@
+[
+  {
+    "type": "airport_transfer",
+    "status": "pending_confirmation",
+    "guest_name": "Emma Williams",
+    "arrival_time": "14:20",
+    "passengers": 2,
+    "luggage": 3,
+    "assigned_team": "front_desk"
+  },
+  {
+    "type": "massage_booking",
+    "status": "pending_confirmation",
+    "guest_name": "Emma Williams",
+    "preferred_time": "18:00",
+    "assigned_team": "wellness_team"
+  }
+]
+

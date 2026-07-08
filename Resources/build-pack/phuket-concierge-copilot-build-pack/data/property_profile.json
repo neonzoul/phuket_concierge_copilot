@@ -1,0 +1,9 @@
+{
+  "id": "property_nai_harn_wellness_hideaway",
+  "name": "Nai Harn Wellness Hideaway",
+  "location": "Phuket, Thailand",
+  "timezone": "Asia/Bangkok",
+  "brand_tone": ["calm", "premium", "precise", "human-centered", "trust-first"],
+  "active_channels": ["web_chat", "slack_demo"]
+}
+

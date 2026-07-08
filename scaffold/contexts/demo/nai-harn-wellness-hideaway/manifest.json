@@ -1,0 +1,39 @@
+{
+  "pack_name": "Phuket Concierge Copilot Demo Data Pack",
+  "version": "1.0.0",
+  "created_date": "2026-07-08",
+  "data_label": "Demo Data — Not Actual Client Information",
+  "property": "Nai Harn Wellness Hideaway",
+  "guest": "Emma Williams",
+  "purpose": "Synthetic source-of-truth data for Demo Build only",
+  "files": [
+    "README.md",
+    "contexts/demo/nai-harn-wellness-hideaway/brand_voice.json",
+    "contexts/demo/nai-harn-wellness-hideaway/demo_conversations.json",
+    "contexts/demo/nai-harn-wellness-hideaway/demo_guests.json",
+    "contexts/demo/nai-harn-wellness-hideaway/demo_stays.json",
+    "contexts/demo/nai-harn-wellness-hideaway/guest_relations_sop.md",
+    "contexts/demo/nai-harn-wellness-hideaway/handoff_rules.json",
+    "contexts/demo/nai-harn-wellness-hideaway/knowledge_base.json",
+    "contexts/demo/nai-harn-wellness-hideaway/manifest.json",
+    "contexts/demo/nai-harn-wellness-hideaway/owner_report_seed.json",
+    "contexts/demo/nai-harn-wellness-hideaway/property.config.json",
+    "contexts/demo/nai-harn-wellness-hideaway/property_handbook.md",
+    "contexts/demo/nai-harn-wellness-hideaway/service_menu.json",
+    "contexts/demo/nai-harn-wellness-hideaway/staff_roles.json",
+    "contexts/demo/nai-harn-wellness-hideaway/wellness_safety_policy.md",
+    "docs/demo_scenario_script.md",
+    "examples/expected_answers.json",
+    "examples/expected_guest_brief.json",
+    "examples/expected_handoffs.json",
+    "examples/expected_requests.json",
+    "examples/expected_weekly_insight.json",
+    "tests/acceptance_test_matrix.csv"
+  ],
+  "counts": {
+    "knowledge_items": 57,
+    "services": 13,
+    "handoff_rules": 18,
+    "acceptance_tests": 40
+  }
+}

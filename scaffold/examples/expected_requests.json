@@ -1,0 +1,38 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "examples": [
+    {
+      "request_id": "req_transfer_emma_001",
+      "type": "airport_transfer_sedan",
+      "guest_id": "guest_emma_001",
+      "status": "PENDING_CONFIRMATION",
+      "assigned_team": "front_office",
+      "fields": {
+        "booking_name": "Emma Williams",
+        "arrival_date": "2026-08-16",
+        "flight_number": "BA0015",
+        "scheduled_landing_time": "14:20",
+        "guest_count": 2,
+        "luggage_count": 3,
+        "contact_number": "+44 7700 900001"
+      },
+      "must_not_contain": [
+        "confirmed_at",
+        "final_driver_details"
+      ]
+    },
+    {
+      "request_id": "req_massage_emma_001",
+      "type": "calm_body_massage_90",
+      "guest_id": "guest_emma_001",
+      "status": "PENDING_CONFIRMATION",
+      "assigned_team": "wellness_team",
+      "fields": {
+        "preferred_date": "2026-08-16",
+        "preferred_time": "18:00",
+        "guest_name": "Emma Williams",
+        "health_concerns_acknowledged": true
+      }
+    }
+  ]
+}

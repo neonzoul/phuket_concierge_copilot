@@ -1,0 +1,33 @@
+[
+  {
+    "type": "airport_transfer",
+    "team": "front_desk",
+    "status": "pending_confirmation",
+    "required_fields": ["arrival_time", "passengers", "luggage"]
+  },
+  {
+    "type": "massage_booking",
+    "team": "wellness_team",
+    "status": "pending_confirmation",
+    "required_fields": ["preferred_time", "guest_name"]
+  },
+  {
+    "type": "yoga_booking",
+    "team": "wellness_team",
+    "status": "pending_confirmation",
+    "required_fields": ["preferred_time", "guest_name", "party_size"]
+  },
+  {
+    "type": "dietary_preference",
+    "team": "front_desk",
+    "status": "pending_confirmation",
+    "required_fields": ["dietary_preference"]
+  },
+  {
+    "type": "quiet_room_request",
+    "team": "front_desk",
+    "status": "pending_confirmation",
+    "required_fields": ["room_preference"]
+  }
+]
+

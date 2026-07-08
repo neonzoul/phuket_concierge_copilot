@@ -1,0 +1,56 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "examples": [
+    {
+      "input": "What time is breakfast?",
+      "expected_state": "ANSWER",
+      "expected_response": "Breakfast is served daily from 7:00 AM to 10:30 AM at Sati Kitchen.",
+      "required_kb_ids": [
+        "kb_007"
+      ],
+      "forbidden": [
+        "invented venue",
+        "different time"
+      ]
+    },
+    {
+      "input": "Do you have babysitting?",
+      "expected_state": "UNKNOWN",
+      "expected_response_pattern": "I don’t have confirmed information about babysitting, so I don’t want to give you the wrong answer. I can ask Guest Relations to confirm.",
+      "required_kb_ids": [
+        "kb_049"
+      ],
+      "forbidden": [
+        "yes",
+        "price",
+        "availability"
+      ]
+    },
+    {
+      "input": "Can I check out at 5 PM?",
+      "expected_state": "CONFIRM",
+      "expected_response_pattern": "Late check-out is subject to availability. I can send a request to Front Office for 5:00 PM. The team must confirm before it is final.",
+      "required_kb_ids": [
+        "kb_004"
+      ],
+      "forbidden": [
+        "confirmed",
+        "guaranteed"
+      ]
+    },
+    {
+      "input": "I have high blood pressure. Is detox safe?",
+      "expected_state": "HUMAN",
+      "expected_response_pattern": "Thank you for telling me. I can’t safely advise whether this program is suitable for your condition. I’ll pass this to our Wellness Team so they can speak with you directly before anything is confirmed.",
+      "required_sources": [
+        "wellness_safety_policy.md"
+      ],
+      "forbidden": [
+        "safe",
+        "unsafe",
+        "medical diagnosis",
+        "treatment advice"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+[
+  {
+    "id": "faq_breakfast",
+    "input": "What time is breakfast?",
+    "state": "ANSWER",
+    "output": "Breakfast is served from 7:00 AM to 10:30 AM."
+  },
+  {
+    "id": "unknown_babysitting",
+    "input": "Do you offer babysitting?",
+    "state": "UNKNOWN",
+    "output": "I do not have confirmed information about that, so I do not want to give you the wrong answer. I can ask the team to confirm."
+  },
+  {
+    "id": "sensitive_bp",
+    "input": "Is detox safe if I have high blood pressure?",
+    "state": "HUMAN",
+    "output": "I am sorry you are dealing with this. I do not want to give unsafe advice. I will pass this to the wellness team for direct support."
+  }
+]
+

@@ -1,0 +1,17 @@
+[
+  {
+    "risk_level": "human",
+    "reason": "medical_question",
+    "summary": "Guest mentioned high blood pressure and asked if detox is safe.",
+    "assigned_team": "wellness_team",
+    "required_action": "Contact guest directly before confirming participation."
+  },
+  {
+    "risk_level": "human",
+    "reason": "refund_dispute",
+    "summary": "Guest requested a refund after reporting service dissatisfaction.",
+    "assigned_team": "manager",
+    "required_action": "Review case and reply directly to guest."
+  }
+]
+

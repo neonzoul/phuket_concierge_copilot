@@ -1,0 +1,32 @@
+{
+  "guest_name": "Emma Williams",
+  "stay": {
+    "arrival_at": "2026-07-10T14:20:00+07:00",
+    "departure_at": "2026-07-15T12:00:00+07:00",
+    "room_or_villa": "Villa 12"
+  },
+  "preferences": {
+    "quiet_room": true,
+    "dietary_preference": "gluten_free",
+    "wellness_goal": "sleep_and_stress_recovery"
+  },
+  "requests": [
+    {
+      "type": "airport_transfer",
+      "status": "pending_confirmation"
+    },
+    {
+      "type": "massage_booking",
+      "status": "pending_confirmation"
+    }
+  ],
+  "sensitivities": [
+    "high_blood_pressure"
+  ],
+  "pending_actions": [
+    "Confirm airport transfer details",
+    "Wellness team to contact guest regarding detox safety"
+  ],
+  "reviewed_by": null
+}
+

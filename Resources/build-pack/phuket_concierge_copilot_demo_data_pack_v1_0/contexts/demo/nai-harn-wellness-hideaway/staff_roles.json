@@ -1,0 +1,69 @@
+{
+  "data_label": "Demo Data — Not Actual Client Information",
+  "property_id": "demo_nhwh_001",
+  "roles": [
+    {
+      "role_id": "guest_relations",
+      "display_name": "Guest Relations",
+      "responsibilities": [
+        "general guest support",
+        "unknown questions",
+        "special occasions",
+        "restaurant requests"
+      ],
+      "ack_target_minutes": 15,
+      "demo_contact": "guestrelations@demo.example"
+    },
+    {
+      "role_id": "front_office",
+      "display_name": "Front Office",
+      "responsibilities": [
+        "arrival",
+        "departure",
+        "airport transfer",
+        "room requests",
+        "late checkout"
+      ],
+      "ack_target_minutes": 10,
+      "demo_contact": "frontoffice@demo.example"
+    },
+    {
+      "role_id": "wellness_team",
+      "display_name": "Wellness Team",
+      "responsibilities": [
+        "medical-adjacent wellness questions",
+        "treatment suitability",
+        "yoga",
+        "massage",
+        "dietary sensitivities"
+      ],
+      "ack_target_minutes": 10,
+      "demo_contact": "wellness@demo.example"
+    },
+    {
+      "role_id": "operations_manager",
+      "display_name": "Operations Manager",
+      "responsibilities": [
+        "safety",
+        "security",
+        "emergency",
+        "major service failure",
+        "after-hours escalation"
+      ],
+      "ack_target_minutes": 5,
+      "demo_contact": "operations@demo.example"
+    },
+    {
+      "role_id": "general_manager",
+      "display_name": "General Manager",
+      "responsibilities": [
+        "refund disputes",
+        "serious complaints",
+        "exceptions",
+        "executive review"
+      ],
+      "ack_target_minutes": 30,
+      "demo_contact": "gm@demo.example"
+    }
+  ]
+}

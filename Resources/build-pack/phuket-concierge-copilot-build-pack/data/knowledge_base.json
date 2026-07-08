@@ -1,0 +1,48 @@
+[
+  {
+    "id": "kb_breakfast_time",
+    "property_id": "property_nai_harn_wellness_hideaway",
+    "category": "property_info",
+    "intent": "breakfast_time",
+    "verified_answer": "Breakfast is served from 7:00 AM to 10:30 AM.",
+    "source": "Property operations sheet v1",
+    "source_owner": "Front Office Manager",
+    "updated_at": "2026-07-08T00:00:00+07:00",
+    "status": "active",
+    "can_ai_answer": true,
+    "needs_confirmation": false,
+    "risk_level": "low",
+    "handoff_team": null
+  },
+  {
+    "id": "kb_checkin_time",
+    "property_id": "property_nai_harn_wellness_hideaway",
+    "category": "policies",
+    "intent": "checkin_time",
+    "verified_answer": "Standard check-in starts at 2:00 PM.",
+    "source": "Property policy sheet v1",
+    "source_owner": "Operations Manager",
+    "updated_at": "2026-07-08T00:00:00+07:00",
+    "status": "active",
+    "can_ai_answer": true,
+    "needs_confirmation": false,
+    "risk_level": "low",
+    "handoff_team": null
+  },
+  {
+    "id": "kb_wifi",
+    "property_id": "property_nai_harn_wellness_hideaway",
+    "category": "facilities",
+    "intent": "wifi_info",
+    "verified_answer": "Wi-Fi is available throughout the property.",
+    "source": "Guest information sheet v1",
+    "source_owner": "Front Office Manager",
+    "updated_at": "2026-07-08T00:00:00+07:00",
+    "status": "active",
+    "can_ai_answer": true,
+    "needs_confirmation": false,
+    "risk_level": "low",
+    "handoff_team": null
+  }
+]
+
