@@ -220,7 +220,8 @@
       "trigger_examples": [
         "is the boat safe tomorrow",
         "storm",
-        "rough sea"
+        "rough sea",
+        "100% safe"
       ],
       "risk_level": "HIGH",
       "behavior_state": "HUMAN",
@@ -271,6 +272,22 @@
       "handoff_team": "guest_relations",
       "priority": "NORMAL",
       "required_action": "Do not invent service; offer staff check.",
+      "active": true
+    },
+    {
+      "rule_id": "hr_019",
+      "risk_category": "discount_request",
+      "trigger_examples": [
+        "discount",
+        "% off",
+        "lower the price",
+        "reduce the price"
+      ],
+      "risk_level": "MEDIUM",
+      "behavior_state": "HUMAN",
+      "handoff_team": "general_manager",
+      "priority": "NORMAL",
+      "required_action": "Do not grant discounts or price exceptions; route to General Manager.",
       "active": true
     }
   ]

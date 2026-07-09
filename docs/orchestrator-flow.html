@@ -104,7 +104,8 @@
   <div class="doc-meta">
     Scope: <code>POST /api/v1/messages</code> end-to-end — the orchestrator, its 7 agents, and the
     resulting ANSWER/CONFIRM/HUMAN/UNKNOWN behavior states.<br />
-    Generated from commit <code>d137047</code> (2026-07-08). Source files:
+    Generated from commit <code>d137047</code> (2026-07-08), updated as of commit
+    <code>d05d1b1</code> (2026-07-09) for the acceptance-suite classifier fixes. Source files:
     <code>apps/api/src/routes/index.ts</code>,
     <code>packages/orchestration/src/orchestrator.ts</code>,
     <code>packages/agent-runtime/src/{runAgent,types}.ts</code>,
@@ -167,11 +168,12 @@ for a service-menu keyword match <em>before</em> checking the retrieval agent's 
 deliberate — a message like "can I book the morning yoga class?" would also keyword-overlap a
 wellness FAQ, but a booking-shaped request must become <span class="badge CONFIRM">CONFIRM</span>,
 never a free <span class="badge ANSWER">ANSWER</span>, because nothing in this system is allowed to
-autonomously confirm a booking. The tradeoff: a genuine FAQ that happens to share a word with a
-service name (e.g. "How long from the <em>airport</em>?" sharing a word with the "Airport Transfer"
-service) can get misrouted to CONFIRM instead of ANSWER — this is a known, currently-open gap (see
-the acceptance suite findings in <code>spec/implementation-plan.md</code>), not something this
-pipeline design "fixes" automatically.
+autonomously confirm a booking. The tradeoff: a genuine FAQ that happens to share a generic word with
+a service name (e.g. "How long from the <em>airport</em>?" sharing "airport" with the "Airport
+Transfer" service) can get misrouted to CONFIRM instead of ANSWER. This class of bug is why
+<code>SERVICE_HAYSTACK_STOPWORDS</code> exists — every time a false collision like this one is found,
+the shared generic word gets added there rather than reworking the whole matching strategy (see
+Part 2's Agent reference below for the current list).
 </div>
 
 <h3>What each state actually means to the guest</h3>
@@ -249,7 +251,7 @@ per agent (<code>{ timeoutMs, retries, fallback }</code>), supplied by the calle
 <tr><th>Agent</th><th>id</th><th>File</th><th>Output type</th><th>Behavior</th></tr>
 <tr><td>safety-guard</td><td><code>safety-guard</code></td><td><code>packages/agents/safety-guard/src/index.ts</code></td><td><code>SafetyGuardOutput</code></td><td>Iterates <code>propertyContext.handoffRules</code> (skips <code>active: false</code>), substring-matches each rule's <code>trigger_examples</code> (lowercased) against the message. First match wins.</td></tr>
 <tr><td>retrieval</td><td><code>knowledge-retrieval</code></td><td><code>packages/agents/retrieval/src/index.ts</code></td><td><code>RetrievalOutput</code></td><td>Filters <code>knowledgeBase</code> to <code>status === "VERIFIED" &amp;&amp; can_ai_answer</code>, tokenizes message vs. each item's <code>intent</code>+<code>category</code>+<code>example_questions</code>, scores by token overlap, returns top 3. <code>retrieval_confidence = min(1, topOverlap / queryTokenCount)</code>.</td></tr>
-<tr><td>classifier</td><td><code>behavior-classifier</code></td><td><code>packages/agents/classifier/src/index.ts</code></td><td><code>ClassifierOutput</code></td><td>Service-menu keyword match checked first (with a separate stopword list excluding generic hospitality words like "request"/"check"/"room") → CONFIRM. Else FAQ match with <code>retrieval_confidence &gt;= 0.5</code> → ANSWER. Else → UNKNOWN.</td></tr>
+<tr><td>classifier</td><td><code>behavior-classifier</code></td><td><code>packages/agents/classifier/src/index.ts</code></td><td><code>ClassifierOutput</code></td><td>Service-menu keyword match checked first (<code>SERVICE_HAYSTACK_STOPWORDS</code> excludes generic hospitality words that collide across services/FAQs: <code>request</code>, <code>requests</code>, <code>service</code>, <code>services</code>, <code>check</code>, <code>stay</code>, <code>room</code>, <code>class</code>, <code>booking</code>, <code>airport</code>, <code>checkout</code>, <code>private</code>) → CONFIRM. Else FAQ match with <code>retrieval_confidence &gt; 0.5</code> (strictly greater — a single-word overlap on a short query sits at exactly 0.5 and isn't treated as sufficient evidence) → ANSWER. Else → UNKNOWN.</td></tr>
 <tr><td>guest-response</td><td><code>guest-response</code></td><td><code>packages/agents/guest-response/src/index.ts</code></td><td><code>GuestResponseOutput</code></td><td>Returns <code>knowledgeItems[0].verified_answer</code> verbatim. Throws if called with zero items (treated as an orchestrator routing bug, not a recoverable case).</td></tr>
 <tr><td>verifier</td><td><code>response-verifier</code></td><td><code>packages/agents/verifier/src/index.ts</code></td><td><code>VerificationOutput</code></td><td>Fails if any <code>cited_knowledge_ids</code> isn't in the supplied <code>citedItems</code>, or if response text contains a hardcoded prohibited phrase (<code>"guaranteed"</code>, <code>"100% safe"</code>, <code>"confirmed booking"</code>, <code>"definitely available"</code>, <code>"best price"</code>).</td></tr>
 <tr><td>request-capture</td><td><code>request-capture</code></td><td><code>packages/agents/request-capture/src/index.ts</code></td><td><code>RequestObject</code></td><td>Looks up the service by <code>service_id</code> in <code>serviceMenu</code> (throws if unknown). <code>missing_fields</code> = service's <code>required_fields</code> not present in <code>providedFields</code>. <code>status</code> is always <code>"pending_confirmation"</code> on creation.</td></tr>
@@ -278,11 +280,16 @@ interface RunAgentOptions { timeoutMs: number; retries: number; fallback: () =&g
 </ul>
 
 <h3>Known gap (see spec/implementation-plan.md)</h3>
-<p>29/40 acceptance-suite cases pass as of this doc's commit. The classifier's service-before-FAQ
-ordering, and several missing <code>knowledge_base.json</code>/<code>service_menu.json</code>/
-<code>handoff_rules.json</code> entries, cause 11 known misroutes — see "Acceptance suite findings"
-in <code>spec/implementation-plan.md</code> for the itemized list before changing classifier/retrieval
-logic, so you don't duplicate that diagnosis.</p>
+<p>39/40 acceptance-suite cases pass as of this doc's commit — see "Acceptance suite fix log" in
+<code>spec/implementation-plan.md</code> for the full diff-by-diff history of what was fixed and why
+(a mix of classifier stopword/threshold tuning and content edits to the approved demo data pack,
+kept in sync with <code>Resources/build-pack/phuket_concierge_copilot_demo_data_pack_v1_0/</code>).
+The one remaining failure, <strong>TRAP-007</strong> ("Can I check in at 8 AM guaranteed?", expects
+CONFIRM), is left as a deliberate, documented limitation: <code>check</code> is stripped from every
+service haystack repo-wide (that's what fixes the "checkout" collision above), and no other word in
+that message is a safe, generalizable match signal without bigram-aware matching — a real scope
+increase, not a one-line fix. Don't add a single-purpose rule keyed to that exact phrasing; that
+would overfit the test rather than fix the product.</p>
 
 </section>
 </div>

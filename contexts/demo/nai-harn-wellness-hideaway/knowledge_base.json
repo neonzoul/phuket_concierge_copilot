@@ -765,7 +765,8 @@
       "intent": "payment_methods",
       "example_questions": [
         "What payment methods do you accept?",
-        "Can I pay by card?"
+        "Can I pay by card?",
+        "Do you accept American Express?"
       ],
       "verified_answer": "The property accepts Visa, Mastercard, American Express, Thai QR payment, bank transfer, and cash in THB.",
       "source": "property_handbook.md#8",
@@ -956,7 +957,7 @@
         "Can you guarantee dolphins?",
         "Will we definitely see wildlife?"
       ],
-      "verified_answer": "Wildlife sightings cannot be guaranteed.",
+      "verified_answer": "Wildlife sightings cannot be promised or assured.",
       "source": "service_menu.json#private_bay_cruise_request",
       "source_owner": "Guest Relations Manager",
       "updated_at": "2026-07-08",

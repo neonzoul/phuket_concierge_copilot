@@ -30,6 +30,12 @@ function tokenize(text: string): string[] {
 // staying available to the knowledge-base retrieval agent's own tokenizer, which needs them.
 const SERVICE_HAYSTACK_STOPWORDS = new Set([
   "request", "requests", "service", "services", "check", "stay", "room", "class", "booking",
+  // "airport"/"checkout" collide with unrelated FAQs (travel-time question, luggage-storage
+  // question) that share the word without asking to book anything. "private" is shared across
+  // four unrelated services (two transfers, a driver, a boat cruise) and — since service matching
+  // takes the first array hit — was always resolving to whichever service happened to be listed
+  // first, never a real signal of intent.
+  "airport", "checkout", "private",
 ]);
 
 function tokenizeServiceHaystack(text: string): string[] {
@@ -62,8 +68,11 @@ export const classifierAgent = {
       });
     }
 
-    // Exact/near-exact FAQ match with real evidence → ANSWER.
-    if (input.retrieval.matched_items.length > 0 && input.retrieval.retrieval_confidence >= 0.5) {
+    // Exact/near-exact FAQ match with real evidence → ANSWER. Strictly greater than 0.5, not
+    // >=: a single shared word between a short query and a short FAQ example (e.g. "pay" in both
+    // "Can I pay with Bitcoin?" and "Can I pay by card?") lands exactly at 0.5 and is not reliable
+    // enough evidence on its own — see UNK-003 in tests/fixtures/acceptance_test_matrix.csv.
+    if (input.retrieval.matched_items.length > 0 && input.retrieval.retrieval_confidence > 0.5) {
       return ClassifierOutput.parse({
         behavior_state: "ANSWER",
         intent: input.retrieval.matched_items[0].intent,

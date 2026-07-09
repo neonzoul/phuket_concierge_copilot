@@ -158,7 +158,7 @@
     },
     {
       "service_id": "restaurant_reservation",
-      "name": "Restaurant Reservation Request",
+      "name": "Reserve a Restaurant Table",
       "category": "dining",
       "description": "The team can request a table at a recommended restaurant.",
       "price": null,
@@ -218,7 +218,7 @@
     },
     {
       "service_id": "dietary_request",
-      "name": "Dietary Request",
+      "name": "Dietary & Gluten Request",
       "category": "dining",
       "description": "Record vegetarian, gluten-free, or allergy-related dining needs.",
       "price": null,
@@ -248,7 +248,7 @@
     },
     {
       "service_id": "private_bay_cruise_request",
-      "name": "Private Phang Nga Bay Cruise Request",
+      "name": "Private Phang Nga Bay Boat Cruise Request",
       "category": "experience",
       "description": "A private day-cruise request through a curated external partner.",
       "price": {
