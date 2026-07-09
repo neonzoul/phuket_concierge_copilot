@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Guest Message Orchestration Flow — Phuket Concierge Copilot</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --fg: #24211d;
+    --muted: #6b6255;
+    --card-bg: #ffffff;
+    --card-border: #e3ddd0;
+    --accent: #2f6f4f;
+    --agent-bg: #1e2530;
+    --agent-fg: #dfe6ee;
+    --agent-border: #3a4657;
+    --code-bg: #eef0ea;
+    --answer: #1c6b3e; --answer-bg: #dff2e6;
+    --confirm: #93670a; --confirm-bg: #fdf1d6;
+    --human: #a4321f; --human-bg: #fbe1de;
+    --unknown: #5a564d; --unknown-bg: #eceae5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1b1a17; --fg: #ece8e0; --muted: #a29c8d;
+      --card-bg: #26241f; --card-border: #3a362e; --accent: #6fbf94;
+      --agent-bg: #12161d; --agent-fg: #d7dee6; --agent-border: #2b3543;
+      --code-bg: #1f2119;
+      --answer: #7fd9a3; --answer-bg: #163527;
+      --confirm: #e7b95c; --confirm-bg: #3a2f10;
+      --human: #f0897a; --human-bg: #3a1712;
+      --unknown: #b7b1a2; --unknown-bg: #2a2820;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px 80px; }
+  header.doc-header {
+    padding: 28px 20px 20px; border-bottom: 1px solid var(--card-border); margin-bottom: 8px;
+  }
+  header.doc-header h1 { margin: 0 0 6px; font-size: 24px; }
+  .doc-meta { font-size: 13px; color: var(--muted); }
+  .doc-meta code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+  nav.doc-nav { display: flex; gap: 8px; margin-top: 14px; }
+  nav.doc-nav a {
+    display: inline-block; padding: 6px 14px; border-radius: 20px; text-decoration: none;
+    font-size: 13px; font-weight: 600; border: 1px solid var(--card-border); color: var(--fg);
+  }
+  nav.doc-nav a:hover { border-color: var(--accent); color: var(--accent); }
+  section { padding: 32px 0; border-top: 1px solid var(--card-border); }
+  section:first-of-type { border-top: none; }
+  #for-agents { background: var(--agent-bg); color: var(--agent-fg); margin: 0 -20px; padding: 32px 20px 60px; border-radius: 12px 12px 0 0; }
+  #for-agents h2, #for-agents h3 { color: var(--agent-fg); }
+  #for-agents a { color: #8fc7ff; }
+  #for-agents code, #for-agents pre { color: var(--agent-fg); }
+  h2 { font-size: 20px; margin-top: 0; }
+  h3 { font-size: 16px; margin-top: 28px; }
+  .part-tag {
+    display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; padding: 2px 8px; border-radius: 4px; margin-bottom: 10px;
+  }
+  #for-engineers .part-tag { background: var(--answer-bg); color: var(--answer); }
+  #for-agents .part-tag { background: var(--agent-border); color: var(--agent-fg); }
+  .card {
+    background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px;
+    padding: 16px 18px; margin: 14px 0;
+  }
+  .gotcha { border-left: 4px solid var(--human); }
+  .gotcha strong { color: var(--human); }
+  pre.mermaid { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 10px; padding: 16px; }
+  code, pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px;
+  }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 4px; }
+  #for-agents code { background: rgba(255,255,255,0.08); }
+  pre code { background: none; padding: 0; }
+  pre {
+    background: var(--code-bg); padding: 14px 16px; border-radius: 8px; overflow-x: auto;
+  }
+  #for-agents pre { background: rgba(255,255,255,0.06); }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--card-border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 4px; }
+  .badge.ANSWER { background: var(--answer-bg); color: var(--answer); }
+  .badge.CONFIRM { background: var(--confirm-bg); color: var(--confirm); }
+  .badge.HUMAN { background: var(--human-bg); color: var(--human); }
+  .badge.UNKNOWN { background: var(--unknown-bg); color: var(--unknown); }
+  ul { padding-left: 22px; }
+  li { margin: 4px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="doc-header">
+  <h1>Guest Message Orchestration Flow</h1>
+  <div class="doc-meta">
+    Scope: <code>POST /api/v1/messages</code> end-to-end — the orchestrator, its 7 agents, and the
+    resulting ANSWER/CONFIRM/HUMAN/UNKNOWN behavior states.<br />
+    Generated from commit <code>d137047</code> (2026-07-08). Source files:
+    <code>apps/api/src/routes/index.ts</code>,
+    <code>packages/orchestration/src/orchestrator.ts</code>,
+    <code>packages/agent-runtime/src/{runAgent,types}.ts</code>,
+    <code>packages/agents/*/src/index.ts</code>,
+    <code>packages/schemas/src/index.ts</code>.<br />
+    This diagram renders via a CDN-hosted Mermaid script — needs internet access to display.
+  </div>
+  <nav class="doc-nav">
+    <a href="#for-engineers">For Engineers</a>
+    <a href="#for-agents">For Agents</a>
+  </nav>
+</header>
+
+<section id="for-engineers">
+<span class="part-tag">Part 1 · For Engineers</span>
+<h2>What this is</h2>
+<p>
+Every guest message goes through one orchestrator function,
+<code>processMessage()</code>, which runs a fixed pipeline of small deterministic agents in order,
+enforces a timeout/retry/fallback around each one, and logs every attempt. The pipeline decides
+which of four states the guest sees — <span class="badge ANSWER">ANSWER</span>,
+<span class="badge CONFIRM">CONFIRM</span>, <span class="badge HUMAN">HUMAN</span>, or
+<span class="badge UNKNOWN">UNKNOWN</span> — and nothing in this pipeline is allowed to fabricate a
+fact, confirm a booking, or give medical/legal advice. Today every agent is a hand-written
+deterministic function (keyword matching, rule lookups) — none of them call an LLM, even though the
+plumbing for that exists.
+</p>
+
+<h3>The full flow</h3>
+<pre class="mermaid">
+flowchart TD
+    A["POST /api/v1/messages"] --> B["safety-guard\n(handoff_rules.json keyword match)"]
+    B -- "matched, behavior_state = HUMAN" --> H1["human-handoff"]
+    H1 --> R_HUMAN(["HUMAN\nfixed apology template"])
+    B -- "no match" --> C["retrieval\n(knowledge_base.json keyword overlap)"]
+    C --> D["classifier\n(service-menu match, then FAQ match)"]
+    D -- "CONFIRM" --> E["request-capture\n(service_menu.json)"]
+    E --> R_CONFIRM(["CONFIRM\nlists missing required fields"])
+    D -- "HUMAN" --> H2["human-handoff"]
+    H2 --> R_HUMAN
+    D -- "UNKNOWN" --> R_UNKNOWN(["UNKNOWN\nfixed no-guess template"])
+    D -- "ANSWER" --> F["guest-response\n(returns verified_answer verbatim)"]
+    F --> G["verifier\n(citation + forbidden-phrase check)"]
+    G -- "pass" --> R_ANSWER(["ANSWER\nresponse_text + cited_knowledge_ids"])
+    G -- "fail" --> R_UNKNOWN
+</pre>
+
+<h3>Why safety-guard runs before retrieval</h3>
+<div class="card">
+The safety-guard agent is checked <strong>first</strong>, against the whole raw message, before
+retrieval or classification even run. This means a high-risk message (e.g. "I have high blood
+pressure, is detox safe?") never gets a chance to accidentally match an unrelated FAQ — safety
+short-circuits the entire rest of the pipeline immediately.
+</div>
+
+<h3>Why the classifier checks services before FAQs</h3>
+<div class="card gotcha">
+<strong>Gotcha:</strong> the classifier (<code>packages/agents/classifier/src/index.ts</code>) checks
+for a service-menu keyword match <em>before</em> checking the retrieval agent's FAQ match. This is
+deliberate — a message like "can I book the morning yoga class?" would also keyword-overlap a
+wellness FAQ, but a booking-shaped request must become <span class="badge CONFIRM">CONFIRM</span>,
+never a free <span class="badge ANSWER">ANSWER</span>, because nothing in this system is allowed to
+autonomously confirm a booking. The tradeoff: a genuine FAQ that happens to share a word with a
+service name (e.g. "How long from the <em>airport</em>?" sharing a word with the "Airport Transfer"
+service) can get misrouted to CONFIRM instead of ANSWER — this is a known, currently-open gap (see
+the acceptance suite findings in <code>spec/implementation-plan.md</code>), not something this
+pipeline design "fixes" automatically.
+</div>
+
+<h3>What each state actually means to the guest</h3>
+<table>
+<tr><th>State</th><th>What happens</th><th>Can it ever say "confirmed" / "booked"?</th></tr>
+<tr><td><span class="badge ANSWER">ANSWER</span></td><td>Returns a knowledge item's verified answer verbatim, after a citation check passes.</td><td>No — it can only restate a pre-verified fact.</td></tr>
+<tr><td><span class="badge CONFIRM">CONFIRM</span></td><td>Creates a <code>pending_confirmation</code> request and tells the guest what's still missing.</td><td>No — explicitly says staff will confirm.</td></tr>
+<tr><td><span class="badge HUMAN">HUMAN</span></td><td>Creates an <code>open</code> handoff with prepared context; guest gets a fixed apology template.</td><td>No — never gives advice, always defers to staff.</td></tr>
+<tr><td><span class="badge UNKNOWN">UNKNOWN</span></td><td>Fixed "I don't have confirmed information" template. No knowledge item, no service match, or verification failed.</td><td>No — this is the deliberate no-guess fallback.</td></tr>
+</table>
+
+<h3>Two ways to end up in UNKNOWN</h3>
+<div class="card">
+UNKNOWN isn't just "the classifier gave up." It's also the <strong>safety net after a verification
+failure</strong>: if guest-response generates an answer citing a knowledge item that wasn't actually
+in the retrieved set, or the answer text contains a forbidden phrase (e.g. "guaranteed", "100%
+safe"), the verifier fails it and the orchestrator downgrades the whole response to UNKNOWN — the
+guest never sees the unverified answer, even for a split second.
+</div>
+
+<h3>Timeouts, retries, fallbacks</h3>
+<p>
+Every agent call goes through <code>runAgent()</code>
+(<code>packages/agent-runtime/src/runAgent.ts</code>), which retries up to <code>options.retries</code>
+times on error, and on final failure calls <code>options.fallback()</code> instead of throwing — so a
+broken agent degrades to a safe default rather than crashing the request. Every attempt (success,
+error, or fallback) is written to the event log. These per-agent timeout/retry/fallback values live
+in <code>apps/api/src/server.ts</code> today (passed into <code>createOrchestrator()</code>), not
+hardcoded inside any agent file.
+</p>
+</section>
+
+<section id="for-agents">
+<span class="part-tag">Part 2 · For Agents</span>
+<h2>Reference</h2>
+
+<h3>Entry point</h3>
+<pre><code>POST /api/v1/messages
+Body: { message: string; guestId?: string; guestName?: string; conversationId?: string; providedFields?: Record&lt;string, unknown&gt; }
+</code></pre>
+<p>Handled in <code>apps/api/src/routes/index.ts:20-30</code>. The handler's only job is calling
+<code>orchestrator.processMessage({...req.body, propertyContext})</code> and, based on the result
+state, writing to <code>requestsRepo</code> (CONFIRM) or <code>handoffsRepo</code> (HUMAN). No
+orchestration or business logic lives in the route handler itself.</p>
+
+<h3>createOrchestrator(timeouts) — packages/orchestration/src/orchestrator.ts</h3>
+<p>Returns <code>{ processMessage(input): Promise&lt;ProcessMessageResult&gt; }</code>.
+<code>timeouts</code> is an <code>AgentTimeouts</code> object with one <code>RunAgentOptions</code>
+per agent (<code>{ timeoutMs, retries, fallback }</code>), supplied by the caller
+(<code>apps/api/src/server.ts</code>) — never hardcoded inside the orchestrator or any agent.</p>
+<pre><code>type ProcessMessageResult =
+  | { state: "ANSWER"; responseText: string; citedKnowledgeIds: string[] }
+  | { state: "UNKNOWN"; responseText: string }
+  | { state: "CONFIRM"; responseText: string; request: RequestObject }
+  | { state: "HUMAN"; responseText: string; handoff: HandoffObject };
+</code></pre>
+
+<h3>Pipeline order (exact)</h3>
+<ol>
+<li><code>safetyGuardAgent.execute({ message, propertyContext })</code> → <code>SafetyGuardOutput</code>.
+  If <code>matched &amp;&amp; behavior_state === "HUMAN"</code>, call <code>humanHandoffAgent</code> and return <code>{ state: "HUMAN" }</code> immediately — retrieval/classifier never run.</li>
+<li><code>retrievalAgent.execute({ message, propertyContext })</code> → <code>RetrievalOutput</code> (always runs if safety-guard didn't short-circuit).</li>
+<li><code>classifierAgent.execute({ message, retrieval, propertyContext })</code> → <code>ClassifierOutput</code>. Branches on <code>classification.behavior_state</code>:
+  <ul>
+    <li><code>UNKNOWN</code> → return fixed template, no further agent calls.</li>
+    <li><code>CONFIRM</code> → <code>requestCaptureAgent.execute({ serviceId: classification.intent, guestId, guestName, providedFields, sourceMessageId: traceId, propertyContext })</code> → <code>RequestObject</code>.</li>
+    <li><code>HUMAN</code> → <code>humanHandoffAgent.execute(...)</code>, with a synthetic <code>safetyResult</code> built from the classifier's <code>intent</code>/<code>reason</code> (hardcoded <code>risk_level: "MEDIUM"</code>, <code>handoff_team: "guest_relations"</code> — this is the fallback branch for HUMAN states the safety-guard's rule table didn't catch).</li>
+    <li><code>ANSWER</code> (default) → <code>guestResponseAgent.execute({ knowledgeItems: retrieval.matched_items })</code> → <code>verifierAgent.execute({ response, citedItems: retrieval.matched_items })</code>. If <code>!verification.pass</code>, downgrade to <code>UNKNOWN</code>.</li>
+  </ul>
+</li>
+</ol>
+
+<h3>Agent reference</h3>
+<table>
+<tr><th>Agent</th><th>id</th><th>File</th><th>Output type</th><th>Behavior</th></tr>
+<tr><td>safety-guard</td><td><code>safety-guard</code></td><td><code>packages/agents/safety-guard/src/index.ts</code></td><td><code>SafetyGuardOutput</code></td><td>Iterates <code>propertyContext.handoffRules</code> (skips <code>active: false</code>), substring-matches each rule's <code>trigger_examples</code> (lowercased) against the message. First match wins.</td></tr>
+<tr><td>retrieval</td><td><code>knowledge-retrieval</code></td><td><code>packages/agents/retrieval/src/index.ts</code></td><td><code>RetrievalOutput</code></td><td>Filters <code>knowledgeBase</code> to <code>status === "VERIFIED" &amp;&amp; can_ai_answer</code>, tokenizes message vs. each item's <code>intent</code>+<code>category</code>+<code>example_questions</code>, scores by token overlap, returns top 3. <code>retrieval_confidence = min(1, topOverlap / queryTokenCount)</code>.</td></tr>
+<tr><td>classifier</td><td><code>behavior-classifier</code></td><td><code>packages/agents/classifier/src/index.ts</code></td><td><code>ClassifierOutput</code></td><td>Service-menu keyword match checked first (with a separate stopword list excluding generic hospitality words like "request"/"check"/"room") → CONFIRM. Else FAQ match with <code>retrieval_confidence &gt;= 0.5</code> → ANSWER. Else → UNKNOWN.</td></tr>
+<tr><td>guest-response</td><td><code>guest-response</code></td><td><code>packages/agents/guest-response/src/index.ts</code></td><td><code>GuestResponseOutput</code></td><td>Returns <code>knowledgeItems[0].verified_answer</code> verbatim. Throws if called with zero items (treated as an orchestrator routing bug, not a recoverable case).</td></tr>
+<tr><td>verifier</td><td><code>response-verifier</code></td><td><code>packages/agents/verifier/src/index.ts</code></td><td><code>VerificationOutput</code></td><td>Fails if any <code>cited_knowledge_ids</code> isn't in the supplied <code>citedItems</code>, or if response text contains a hardcoded prohibited phrase (<code>"guaranteed"</code>, <code>"100% safe"</code>, <code>"confirmed booking"</code>, <code>"definitely available"</code>, <code>"best price"</code>).</td></tr>
+<tr><td>request-capture</td><td><code>request-capture</code></td><td><code>packages/agents/request-capture/src/index.ts</code></td><td><code>RequestObject</code></td><td>Looks up the service by <code>service_id</code> in <code>serviceMenu</code> (throws if unknown). <code>missing_fields</code> = service's <code>required_fields</code> not present in <code>providedFields</code>. <code>status</code> is always <code>"pending_confirmation"</code> on creation.</td></tr>
+<tr><td>human-handoff</td><td><code>human-handoff</code></td><td><code>packages/agents/human-handoff/src/index.ts</code></td><td><code>HandoffObject</code></td><td>Looks up <code>ack_target_minutes</code> from <code>staffRoles</code> by <code>handoff_team</code>. <code>priority</code> defaults to <code>"NORMAL"</code>, <code>assigned_team</code> defaults to <code>"guest_relations"</code> if the safety result didn't specify one. <code>status</code> always starts <code>"open"</code>.</td></tr>
+</table>
+
+<h3>runAgent() contract — packages/agent-runtime/src/runAgent.ts</h3>
+<pre><code>runAgent&lt;TInput, TOutput&gt;(agent: Agent&lt;TInput,TOutput&gt;, input: TInput, context: AgentExecutionContext, options: RunAgentOptions): Promise&lt;TOutput&gt;
+
+interface RunAgentOptions { timeoutMs: number; retries: number; fallback: () =&gt; unknown }
+</code></pre>
+<ul>
+<li>Races <code>agent.execute()</code> against a <code>setTimeout</code> rejection at <code>timeoutMs</code>.</li>
+<li>Retries up to <code>options.retries</code> additional times on any thrown error (including timeout).</li>
+<li>On exhausted retries, calls <code>options.fallback()</code> and returns its result — never throws out of <code>runAgent</code> itself.</li>
+<li>Writes one <code>EventLogEntry</code> per attempt via <code>appendEvent()</code>, <code>event_type</code> one of <code>agent.success</code> / <code>agent.error</code> / <code>agent.fallback</code>, keyed by <code>context.traceId</code>.</li>
+</ul>
+
+<h3>Invariants (do not violate when editing this area)</h3>
+<ul>
+<li>No agent calls another agent directly — only the orchestrator calls agents, and only through <code>runAgent</code>.</li>
+<li>No agent file hardcodes a model name, prompt path, timeout, or retry count — those come from <code>config/agents.registry.ts</code> (registry) and the timeouts object threaded into <code>createOrchestrator</code> (runtime behavior); today's deterministic agents don't read the registry at all since they don't call an LLM, but the registry is still the intended single source of truth once any agent flips to <code>provider: "anthropic"</code>.</li>
+<li>No property-specific fact appears in agent source — everything comes from <code>propertyContext</code> (loaded from <code>contexts/{slug}/*.json</code>).</li>
+<li><code>HUMAN</code> is not equivalent to <code>URGENT</code> — priority is a separate axis set by the matched rule/team, never implied by the state alone.</li>
+<li>guest-response only ever echoes a knowledge item's existing <code>verified_answer</code> — it does not paraphrase or generate new text today.</li>
+</ul>
+
+<h3>Known gap (see spec/implementation-plan.md)</h3>
+<p>29/40 acceptance-suite cases pass as of this doc's commit. The classifier's service-before-FAQ
+ordering, and several missing <code>knowledge_base.json</code>/<code>service_menu.json</code>/
+<code>handoff_rules.json</code> entries, cause 11 known misroutes — see "Acceptance suite findings"
+in <code>spec/implementation-plan.md</code> for the itemized list before changing classifier/retrieval
+logic, so you don't duplicate that diagnosis.</p>
+
+</section>
+</div>
+
+<script>
+  mermaid.initialize({ startOnLoad: true, theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'default' });
+</script>
+</body>
+</html>
